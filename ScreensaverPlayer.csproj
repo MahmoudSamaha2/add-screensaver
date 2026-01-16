@@ -1,21 +1,14 @@
-+<?xml version="1.0" encoding="utf-8"?>
- <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-   <PropertyGroup>
-     <OutputType>WinExe</OutputType>
-     <TargetFramework>net48</TargetFramework>
-     <UseWindowsForms>true</UseWindowsForms>
-     <RootNamespace>ScreensaverPlayer</RootNamespace>
-     <AssemblyName>ScreensaverPlayer</AssemblyName>
-   </PropertyGroup>
-   <ItemGroup>
-     <PackageReference Include="LibVLCSharp.WinForms" Version="3.8.1" />
-     <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.20" />
--    <EmbeddedResource Include="adq screensaver.mp4" />
-+  </ItemGroup>
-+  <ItemGroup>
-+    <None Remove="adq screensaver.mp4" />
-+    <EmbeddedResource Include="adq screensaver.mp4">
-+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-+    </EmbeddedResource>
-   </ItemGroup>
- </Project>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>ScreensaverPlayer</RootNamespace>
+    <AssemblyName>ScreensaverPlayer</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="LibVLCSharp.WinForms" Version="3.8.1" />
+    <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.20" />
+    <EmbeddedResource Include="adq screensaver.mp4" />
+  </ItemGroup>
+</Project>
