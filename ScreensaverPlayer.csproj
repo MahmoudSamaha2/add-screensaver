@@ -7,8 +7,6 @@
     <AssemblyName>ScreensaverPlayer</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LibVLCSharp.WinForms" Version="3.8.1" />
-    <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.20" />
-    <EmbeddedResource Include="adq screensaver.mp4" />
+  <EmbeddedResource Include="sc.gif" />
   </ItemGroup>
 </Project>
