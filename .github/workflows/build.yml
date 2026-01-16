@@ -24,14 +24,23 @@ jobs:
         run: msbuild ScreensaverPlayer.csproj /p:Configuration=Release
         working-directory: .
 
-      - name: Prepare Artifact for Signing
+      - name: Prepare Files
         run: |
-          # Create a directory for the output
-          mkdir bin\Release\net48\unsigned
-          # Rename the file to match your SignPath artifact configuration name
-          copy bin\Release\net48\ScreensaverPlayer.exe bin\Release\net48\unsigned\ADQ-screensaver.scr
+          mkdir staging
+          # Copy and rename your file to match your SignPath configuration
+          copy bin\Release\net48\ScreensaverPlayer.exe staging\ADQ-screensaver.scr
         shell: cmd
 
+      # Step 1: Upload the unsigned file to GitHub
+      - name: Upload Unsigned Artifact
+        id: upload_unsigned  # We need this ID to reference the artifact-id later
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-screensaver
+          path: staging/ADQ-screensaver.scr
+          retention-days: 1
+
+      # Step 2: Submit that uploaded artifact to SignPath for signing
       - name: Submit to SignPath for Signing
         uses: signpath/github-action-submit-signing-request@v1
         with:
@@ -40,11 +49,13 @@ jobs:
           project-slug: 'adq-screensaver'
           signing-policy-slug: 'adq'
           artifact-configuration-slug: 'initial-version'
-          input-artifact-directory: 'bin/Release/net48/unsigned'
-          output-artifact-directory: 'bin/Release/net48/signed'
+          # This is the fix: we use the output from the previous upload step
+          github-artifact-id: ${{ steps.upload_unsigned.outputs.artifact-id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           wait-for-completion: true
+          output-artifact-directory: 'bin/Release/net48/signed'
 
-      - name: Upload Signed Screensaver
+      - name: Upload Final Signed Screensaver
         uses: actions/upload-artifact@v4
         with:
           name: ADQ-Screensaver-Signed
