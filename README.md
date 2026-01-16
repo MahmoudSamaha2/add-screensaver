@@ -4,26 +4,16 @@ A simple Windows screensaver (.scr) that plays an MP4 video in fullscreen using 
 
 ## Instructions
 
-### 1. Build with GitHub Actions (No Visual Studio Needed)
+### 1. Build 
 
-1. **Create a GitHub repository**
-   - Create a new repository on GitHub (e.g., `ScreensaverPlayer`).
-   - Copy all files from this folder (including your `video.mp4`) into the repository.
-
-2. **Push your code to GitHub**
-   - Use Git or GitHub Desktop to push your files to the repository.
-
-3. **Automatic build**
-   - GitHub Actions will automatically build your screensaver on every push to the `main` branch.
-
-4. **Download the screensaver**
+1. **Download the screensaver**
    - Go to the `Actions` tab in your GitHub repository.
    - Select the latest workflow run.
    - Download the `ScreensaverPlayer` artifact. It will contain:
      - `ScreensaverPlayer.scr` (the screensaver file)
      - `video.mp4` (your video)
 
-5. **Install the screensaver**
+2. **Install the screensaver**
    - Copy both files to your Windows PC.
    - Move/copy the `.scr` file (and your `video.mp4`) to `C:\Windows\System32` or right-click the `.scr` file and select `Install`.
 
