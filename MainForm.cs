@@ -1,12 +1,15 @@
 using System;
 using System.Windows.Forms;
-using AxWMPLib;
+using LibVLCSharp.Shared;
+using LibVLCSharp.WinForms;
 
 namespace ScreensaverPlayer
 {
     public class MainForm : Form
     {
-        private AxWindowsMediaPlayer player;
+        private LibVLC _libVLC;
+        private MediaPlayer _mediaPlayer;
+        private VideoView _videoView;
         private string videoPath = "adq screensaver.mp4";
 
         public MainForm(string[] args)
@@ -22,12 +25,34 @@ namespace ScreensaverPlayer
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            player = new AxWindowsMediaPlayer();
-            player.Dock = DockStyle.Fill;
-            player.uiMode = "none";
-            player.URL = videoPath;
-            player.settings.setMode("loop", true);
-            this.Controls.Add(player);
+            Core.Initialize();
+            _libVLC = new LibVLC();
+            _mediaPlayer = new MediaPlayer(_libVLC);
+            _videoView = new VideoView
+            {
+                MediaPlayer = _mediaPlayer,
+                Dock = DockStyle.Fill
+            };
+            this.Controls.Add(_videoView);
+
+            var media = new Media(_libVLC, videoPath, FromType.FromPath);
+            _mediaPlayer.Play(media);
+            _mediaPlayer.EndReached += (s, ev) =>
+            {
+                // Loop video
+                _mediaPlayer.Stop();
+                _mediaPlayer.Play(media);
+            };
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _mediaPlayer?.Dispose();
+                _libVLC?.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
