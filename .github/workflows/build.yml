@@ -26,13 +26,13 @@ jobs:
 
       - name: Copy video file (if present)
         run: |
-          if exist "adq screensaver.mp4" copy "adq screensaver.mp4" "bin\Release\adq screensaver.mp4"
+          if exist "adq screensaver.mp4" copy "adq screensaver.mp4" "bin\Release\net48\adq screensaver.mp4"
         shell: cmd
         working-directory: .
 
       - name: Rename EXE to SCR
         run: |
-          ren bin\Release\ScreensaverPlayer.exe ScreensaverPlayer.scr
+          ren bin\Release\net48\ScreensaverPlayer.exe ScreensaverPlayer.scr
         shell: cmd
         working-directory: .
 
@@ -41,5 +41,5 @@ jobs:
         with:
           name: ScreensaverPlayer
           path: |
-            bin/Release/ScreensaverPlayer.scr
-            bin/Release/adq screensaver.mp4
+            bin/Release/net48/ScreensaverPlayer.scr
+            bin/Release/net48/adq screensaver.mp4
